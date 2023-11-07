@@ -12,8 +12,8 @@ public class Simulation implements ActionListener{
     static double[] xacceleration = {0};
     static double[] yacceleration = {0};
     static final int frameSize = 500;
-    static Particle[] particles = {new Particle(50, frameSize), new Particle(10, frameSize)};
-    static double collisionDamping = 1;
+    static Particle[] particles = {new Particle(50, frameSize, 0, 50), new Particle(10, frameSize, 0, 0)};
+    static double collisionDamping = 0;
     static final int FPS = 60;
     static final double gravity = 9.8;
     public static void main(String[] args) {
@@ -74,8 +74,13 @@ public class Simulation implements ActionListener{
                 continue;
             }
             // Thank Ronald :)
-            if ((Math.sqrt((Math.pow((particles[i].xposition + particles[i].diameter / 2) - (particle.xposition + particle.diameter / 2), 2) + Math.pow((particles[i].yposition + particles[i].diameter / 2) - (particle.yposition + particle.diameter / 2), 2))) <= (particle.diameter / 2) + (particles[i].diameter / 2))) {
+            double distance = Math.sqrt((Math.pow((particles[i].xposition + particles[i].diameter / 2) - (particle.xposition + particle.diameter / 2), 2) + Math.pow((particles[i].yposition + particles[i].diameter / 2) - (particle.yposition + particle.diameter / 2), 2)));
+            if (distance <= (particle.diameter / 2) + (particles[i].diameter / 2)) {
+                // Move particle back along the line of resistance out of the circle (take direvative of distance function?) 
                 System.out.println("Collision detected");
+                particle.xposition -= particle.xvelocity;
+                particle.yposition -= particle.yvelocity;
+                particle.yvelocity = -particle.yvelocity * collisionDamping;
             } else {
                 System.out.println("No collision");
             }
