@@ -12,7 +12,7 @@ public class Simulation implements ActionListener{
     static double[] xacceleration = {0};
     static double[] yacceleration = {0};
     static final int frameSize = 500;
-    static Particle[] particles = {new Particle(50, frameSize)};
+    static Particle[] particles = {new Particle(50, frameSize), new Particle(10, frameSize)};
     static double collisionDamping = 1;
     static final int FPS = 60;
     static final double gravity = 9.8;
@@ -67,6 +67,18 @@ public class Simulation implements ActionListener{
         if (particle.yposition < 0) {
             particle.yposition = 0;
             particle.yvelocity = -1 * particle.yvelocity * collisionDamping;
+        }
+
+        for (int i = 0; i < particles.length; i++) {
+            if (i == index) {
+                continue;
+            }
+            // Thank Ronald :)
+            if ((Math.sqrt((Math.pow((particles[i].xposition + particles[i].diameter / 2) - (particle.xposition + particle.diameter / 2), 2) + Math.pow((particles[i].yposition + particles[i].diameter / 2) - (particle.yposition + particle.diameter / 2), 2))) <= (particle.diameter / 2) + (particles[i].diameter / 2))) {
+                System.out.println("Collision detected");
+            } else {
+                System.out.println("No collision");
+            }
         }
     }
     
