@@ -7,7 +7,7 @@ public class Vector2 {
         y = initY;
     }
 
-    public Vector2 zero() {
+    public static Vector2 zero() {
         return new Vector2(0.00, 0.00);
     }
 

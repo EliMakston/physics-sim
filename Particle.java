@@ -1,6 +1,6 @@
 public class Particle {
-    Vector2 velocity = new Vector2(0, 0);
-    Vector2 acceleration = new Vector2(0, 0);
+    Vector2 velocity = Vector2.zero();
+    Vector2 acceleration = Vector2.zero();
     double x = 0;
     double y = 0;
     int diameter = 50;
