@@ -16,6 +16,7 @@ public class Panel extends JPanel{
         Graphics2D g2D = (Graphics2D) g;
         for (int i = 0; i < xpositions.length; i++) {
             g2D.drawOval((int) xpositions[i], (int) ypositions[i], diameter[i], diameter[i]);
+            g2D.drawOval((int) xpositions[i] + (diameter[i] / 2), (int) ypositions[i] + (diameter[i] / 2), 1, 1);
         }
     }
 
