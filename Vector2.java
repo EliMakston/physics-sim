@@ -25,4 +25,21 @@ public class Vector2 {
         double y = additive.y + this.y;
         return new Vector2(x, y);
     }
+
+    public static double dotProduct(Vector2 vector1, Vector2 vector2) {
+        return (vector1.x * vector2.x) + (vector1.y * vector2.y);
+    }
+
+    public static double angleBetween(Vector2 vector1, Vector2 vector2) {
+        double dotProduct = dotProduct(vector1, vector2);
+        return Math.acos(dotProduct / (vector1.getMagnitude() * vector2.getMagnitude()));
+    }
+
+    public double getMagnitude() {
+        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    }
+
+    public static Vector2 normalize(Vector2 vector) {
+        return new Vector2(vector.x / vector.getMagnitude(), vector.y / vector.getMagnitude());
+    }
 }

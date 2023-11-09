@@ -23,4 +23,8 @@ public class Particle {
         double aY = ((this.y + (diameter / 2)) + vY) / (magV * (diameter / 2));
         return new double[] {aX, aY};
     }
+
+    public double[] center() {
+        return new double[] {x + radius, y + radius};
+    }
 }

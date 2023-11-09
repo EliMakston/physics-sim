@@ -8,8 +8,8 @@ public class Simulation implements ActionListener{
     static double[] ypositions = {0};
     static int[] diameter = {0};
     static final int frameSize = 500;
-    static Particle[] particles = {new Particle(50, frameSize, 0, 50), new Particle(10, frameSize, 0, 0)};
-    static double collisionDamping = 0.9;
+    static Particle[] particles = {new Particle(50, frameSize, 50, 50), new Particle(10, frameSize, 50, 0), new Particle(20, frameSize, 30, 50)};
+    static double collisionDamping = 0;
     static final int FPS = 60;
     static Vector2 gravity = new Vector2(0, 9.8 / FPS);
     public static void main(String[] args) {
@@ -69,13 +69,18 @@ public class Simulation implements ActionListener{
                 continue;
             }
             // Thank Ronald :)
-            double distance = Math.sqrt((Math.pow((particles[i].x + particles[i].radius) - (particle.x + particle.radius), 2) + Math.pow((particles[i].y + particles[i].radius) - (particle.y + particle.radius), 2)));
+            double distance = Math.sqrt((Math.pow((particles[i].center()[0]) - (particle.center()[0]), 2) + Math.pow((particles[i].center()[1]) - (particle.center()[1]), 2)));
             if (distance <= (particle.radius) + (particles[i].radius)) {
                 // Move particle back along the line of resistance out of the circle (take direvative of distance function?) 
-                System.out.println("Collision detected");
+                //System.out.println("Collision detected");
                 particle.x -= particle.velocity.x;
                 particle.y -= particle.velocity.y;
-                particle.velocity.y = particle.velocity.negative().y * collisionDamping;
+                //particle.velocity.y = particle.velocity.negative().y * collisionDamping;
+                Vector2 toCollidedParticle = new Vector2(particles[i].center()[0] - particle.center()[0], particles[i].center()[1] - particle.center()[1]);
+                toCollidedParticle = Vector2.normalize(toCollidedParticle);
+                particle.velocity.add(toCollidedParticle.negative());
+                //System.out.println(particle.velocity.x);
+                // TODO Find the vector to the particle you collided with, and then normalize it and mulitply by mass, move accordingly
                 // double[] newcoords = particles[i].findCoordsOfIntersection(particle.x, particle.y);
                 // System.out.println(newcoords[0] + particle.diameter);
                 // System.out.println(newcoords[1] + particle.diameter);
@@ -83,7 +88,7 @@ public class Simulation implements ActionListener{
                 // particle.y = newcoords[1] + particle.diameter + particles[i].y;
                 //particle.velocity.y = -particle.velocity.y * collisionDamping;
             } else {
-                System.out.println("No collision");
+                //System.out.println("No collision");
             }
         }
     }
