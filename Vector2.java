@@ -1,10 +1,12 @@
 public class Vector2 {
     public double x;
     public double y;
+    public double magnitude;
 
     public Vector2(double initX, double initY) {
         x = initX;
         y = initY;
+        magnitude = this.getMagnitude();
     }
 
     public static Vector2 zero() {
@@ -32,7 +34,7 @@ public class Vector2 {
 
     public static double angleBetween(Vector2 vector1, Vector2 vector2) {
         double dotProduct = dotProduct(vector1, vector2);
-        return Math.acos(dotProduct / (vector1.getMagnitude() * vector2.getMagnitude()));
+        return Math.acos(dotProduct / (vector1.magnitude * vector2.magnitude));
     }
 
     public double getMagnitude() {
@@ -40,6 +42,6 @@ public class Vector2 {
     }
 
     public static Vector2 normalize(Vector2 vector) {
-        return new Vector2(vector.x / vector.getMagnitude(), vector.y / vector.getMagnitude());
+        return new Vector2(vector.x / vector.magnitude, vector.y / vector.magnitude);
     }
 }
